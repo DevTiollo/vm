@@ -14,7 +14,8 @@ Settings options:
 * IP
 * Memory
 * CPU's
-* Project Name (if running multiple)  
+* Project Name (if running multiple)
+  
 Pay attention that if while naming your domains as .localhost or .local, you can get into issues since these names are reserver on MacOS.
 Also the folder ~/work is crucial if you are running Antivirus software. Folders named as such will be avoided by the scanning process.
 
