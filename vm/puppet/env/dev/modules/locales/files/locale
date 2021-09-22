@@ -1,0 +1,6 @@
+# Created by cloud-init v. 0.7.9 on Thu, 13 Apr 2017 12:49:51 +0000
+LANG="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
+LANGUAGE="en_US.UTF-8"
+LC_CTYPE="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"

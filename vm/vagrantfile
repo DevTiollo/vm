@@ -1,0 +1,65 @@
+ip_address = "172.28.128.28"
+project_vhost = ["mydomain.vhost"];
+project_memory = 3072;
+project_cpu = 2;
+project_name = "vagrant_vm"
+
+puts '===================================================================================='
+puts 'Welcome to Tillo based VM. Feel free to provide improvement suggestions.'
+puts 'More at: https://github.com/tiollo-eu/vm'
+puts 'It is recomended to have your VM in /work folder as: ~/work/vm ~/work/www'
+puts '(in order to avoid antivirus check within your sources).'
+puts 'Connect into VM as: $ vagrant ssh.'
+puts 'Put your domains into www folder with structure mydomain.vhost = /www/mydomain/project/web'
+puts '... you can also create a symlink to the /web folder within the VM'
+puts '===================================================================================='
+puts ''
+
+unless Vagrant.has_plugin?("vagrant-hostsupdater")
+  raise 'hostsupdater is not installed! Run: $ vagrant plugin install vagrant-hostsupdater'
+end
+
+unless Vagrant.has_plugin?("vagrant-vbguest")
+  raise 'VBguest is not installed! Run: $ vagrant plugin install vagrant-vbguest'
+end
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/bullseye64"
+  config.vm.provision "shell", path: "scripts/install-puppet.sh"
+
+  config.vm.hostname = "vagrant"
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", project_memory]
+    vb.customize ["modifyvm", :id, "--cpus", project_cpu]
+	  vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+	  vb.customize ['modifyvm', :id, '--natdnsproxy1', 'on']
+  end
+
+  config.vm.define project_name do |node|
+  	config.ssh.forward_agent = true
+  	config.ssh.insert_key = false
+  	config.ssh.keep_alive = true
+	  config.vm.network :private_network, ip: ip_address
+
+    config.nfs.map_uid = Process.uid
+    config.nfs.map_gid = Process.gid
+ 
+    # *.local (bonjour) = dns lookup of 5s
+    config.hostsupdater.aliases = project_vhost
+	  config.hostsupdater.remove_on_suspend = true
+    config.vm.synced_folder "../www/", "/home/vagrant/www/", owner: nil, group: nil, type: "nfs", nfs_udp: false
+  end
+
+  config.vm.provision "puppet" do |puppet|
+    puppet.environment_path     = "puppet/env"
+    puppet.environment          = "dev"
+    puppet.manifests_path       = "puppet/env/dev/manifests"
+    puppet.manifest_file        = "init.pp"
+
+    puppet.module_path = "puppet/env/dev/modules"
+    #puppet.options = ['--verbose --debug']
+    puppet.facter = {
+    	"project_name" => "#{project_name}"
+    } 
+  end
+end
