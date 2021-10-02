@@ -41,6 +41,7 @@ After that, you should be able to navigate to: http://mydomain.vhost/ and check 
 * PHP 7.4 with: fpm, xdebug, apcu, opcache, memcached, pdo (mysql & pgsql), imagemagick
 * Composer
 * MySQL
+* MySQLtuner
 * Memcached
 * Docker
 * NodeJs via NVM
