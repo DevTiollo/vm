@@ -3,6 +3,7 @@ class mysql::install {
     'whois',
     'mariadb-client',
     'mariadb-server',
+    'mysqltuner'
   ]:
     ensure => installed,
     notify => Exec['Persist Password'],
