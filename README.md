@@ -1,5 +1,5 @@
 # VM:
-Virtual Machine - Vagrant, Puppet on Debian 11 (bullseye64), PHP 7.4, MySql, Postgres, Memcached, Docker
+Virtual Machine - Vagrant, Puppet on Debian 11 (bullseye64), PHP 7.4, MySql, PostgreSql, Redis, Memcached, Docker, NVM (NodeJs)
 
 
 ## Dependency:
