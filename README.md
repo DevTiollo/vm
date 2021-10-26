@@ -38,16 +38,16 @@ After that, you should be able to navigate to: http://mydomain.vhost/ and check 
 
 ## Virtual Machine Content:
 * Apache 2.4 (cgi/fpm)
-* PHP 7.4 with: fpm, xdebug, apcu, opcache, memcached, pdo (mysql & pgsql), imagemagick
+* PHP 7.4 with: fpm, xdebug, apcu, opcache, memcached, pdo (mysql, pgsql), redis, imagemagick
 * Composer
 * MySQL
 * MySQLtuner
 * Memcached
+* PostgreSql (has to be enabled within ~/work/vm/puppet/env/dev/manifest/init.pp)
 * Docker
 * NodeJs via NVM
 * Unzip
-   
-Further Postgres is also available, if you wish to install, enable it, uncomment the class within vm/puppet/env/dev/manifests/init.pp (remove #)
+
   
 NodeJS Version: While installing the VM, nvm is installed but not available, since the provisioning is running via root user. Since nvm is running under user vagrant expecting the export into .bashrc of the NVM variable for this user, the terminal has to be updated. All this happens at first login into the VM. After that, NVM is available and the following commands can be executed:
 * $ nvm ls-remote

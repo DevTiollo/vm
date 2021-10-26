@@ -2,16 +2,20 @@ ip_address = "172.28.128.28"
 project_vhost = ["mydomain.vhost"];
 project_memory = 3072;
 project_cpu = 2;
-project_name = "vagrant_vm"
+project_name = "vagrant_vm_2"
+timezone = "Europe/Berlin"
 
 puts '===================================================================================='
-puts 'Welcome to Tillo based VM. Feel free to provide improvement suggestions.'
+puts 'Welcome to Tillo based VM. Feel free to provide any improvement suggestions.'
 puts 'More at: https://github.com/tiollo-eu/vm'
-puts 'It is recomended to have your VM in /work folder as: ~/work/vm ~/work/www'
+puts 'It is recomended to have your VM in ~/work folder as: ~/work/vm and ~/work/www'
 puts '(in order to avoid antivirus check within your sources).'
-puts 'Connect into VM as: $ vagrant ssh.'
-puts 'Put your domains into www folder with structure mydomain.vhost = /www/mydomain/project/web'
-puts '... you can also create a symlink to the /web folder within the VM'
+puts 'Connect into VM as: $ vagrant ssh'
+puts 'Put your domains into www folder with structure mydomain.vhost -> ~/work/www/mydomain/project/web'
+puts '... you can also create a symlink to a /web folder in your VM to match public path.'
+puts 'Following packages are available: * Apache 2.4 (cgi/fpm), MySQL, MySQLtuner, Memcached, Docker'
+puts 'PHP 7.4 with: fpm, xdebug, apcu, opcache, memcached, pdo (mysql, pgsql), redis, imagemagick'
+puts 'NodeJs via NVM, Unzip + PostgreSql has to be enabled.'
 puts '===================================================================================='
 puts ''
 
@@ -25,7 +29,7 @@ end
 
 Vagrant.configure("2") do |config|
   config.vm.box = "debian/bullseye64"
-  config.vm.provision "shell", path: "scripts/install-puppet.sh"
+  config.vm.provision "shell", path: "scripts/install-puppet.sh", :args => timezone
 
   config.vm.hostname = "vagrant"
   config.vm.provider :virtualbox do |vb|

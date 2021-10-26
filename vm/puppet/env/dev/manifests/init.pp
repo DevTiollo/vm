@@ -13,5 +13,6 @@ class { 'mysql::install': }
 class { 'node::install': }
 class { 'php7::install': }
 # class { 'postgresql::install': }
+class { 'redis::install': }
 class { 'ntp::install': }
 class { 'unzip::install': }

@@ -25,6 +25,7 @@ class php7::install {
     'php-pear',
     'php-pspell',
     'php-pgsql',
+    'php-redis',
     'php-sqlite3',
     'php-tidy',
     'php-xdebug',
@@ -32,6 +33,7 @@ class php7::install {
     'php-xmlrpc',
     'php-xsl',
     'php-zip',
+    'php-codesniffer'
   ]:
     ensure => installed,
     notify => File['/etc/php/7.4/fpm/php.ini']

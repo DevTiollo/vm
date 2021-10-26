@@ -18,4 +18,10 @@ echo "PATH=/opt/puppetlabs/bin:$PATH" >> /etc/bash.bashrc
 echo "export PATH" >> /etc/bash.bashrc
 export PATH=/opt/puppetlabs/bin:$PATH
 echo '============= /PUPPET ============='
+
+echo '============= SET TIMEZONE ============='
+timedatectl set-timezone $1
+echo "Current Date and Time setting: "
+timedatectl
+echo '============= /SET TIMEZONE ============='
 exit
